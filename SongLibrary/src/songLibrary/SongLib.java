@@ -25,5 +25,5 @@ public class SongLib extends Application {
 	}
 }
 
-/* Test GIT 2*/
+/* Test 2*/
 
