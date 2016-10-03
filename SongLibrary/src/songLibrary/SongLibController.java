@@ -26,6 +26,9 @@ public class SongLibController {
 			FXCollections.observableArrayList();
 	
 	public void start(Stage mainStage){
+		addSong("112","134","314","135");
+		addSong("115","135","316","135");
+		addSong("114","135","316","135");
 		refreshLVStrings(playList);
 		lv.setItems(playListStrings);
 		lv.getSelectionModel().select(0);
@@ -35,7 +38,7 @@ public class SongLibController {
 		String artist = artistInput.getText();
 		String album = albumInput.getText();
 		String year = yearInput.getText();
-		int newIndex;
+		int newIndex = 0;
 		
 		if (name=="" && artist=="" && album=="" && year==""){
 			Alert emptyInput = new Alert(AlertType.INFORMATION);
@@ -46,10 +49,10 @@ public class SongLibController {
 			emptyInput.showAndWait();
 		} else {
 			newIndex = addSong(name, artist, album, year);
-			refreshLVStrings(playList);
-			lv.setItems(playListStrings);
-			lv.getSelectionModel().select(newIndex);
 		}
+		refreshLVStrings(playList);
+		lv.setItems(playListStrings);
+		lv.getSelectionModel().select(newIndex);
 	}
 	public void refreshLVStrings(ObservableList<Song> playList){
 		playListStrings.clear();
