@@ -59,7 +59,5 @@ public class Song {
 			int compareArtist=((Song)a).getArtist().compareTo(this.artist);
 			return compareArtist;
 		}
-		
-		
 	}
 }
