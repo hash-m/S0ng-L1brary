@@ -1,39 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-	<top>
-        <Label alignment="CENTER" contentDisplay="CENTER" text="Shwasty Song Collection" textAlignment="CENTER" />
-    </top>
    <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="164.0" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
-            <TextField alignment="CENTER_RIGHT" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" />
-            <TextField alignment="CENTER_RIGHT" layoutX="10.0" layoutY="103.0" />
-            <Text layoutX="10.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album" />
-            <TextField alignment="CENTER_RIGHT" layoutX="10.0" layoutY="26.0" />
-            <Text layoutX="10.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Year" />
-            <TextField alignment="CENTER_RIGHT" layoutX="10.0" layoutY="87.0" />
-            <ButtonBar prefHeight="40.0" prefWidth="200.0">
-              <buttons>
-                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="114.0" text="ADD.." />
-                  <Button layoutX="40.0" layoutY="10.0" mnemonicParsing="false" text="EDIT" />
-              </buttons>
-            </ButtonBar>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+                     <HBox.margin>
+                        <Insets bottom="2.0" top="2.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
+            <TextField />
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Artist:" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="2.0" top="2.0" />
+               </VBox.margin>
+            </HBox>
+            <TextField layoutX="10.0" layoutY="103.0" />
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="54.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Album:">
+                     <HBox.margin>
+                        <Insets bottom="2.0" top="2.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
+            <TextField layoutX="10.0" layoutY="26.0" />
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="108.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Year:">
+                     <HBox.margin>
+                        <Insets bottom="2.0" top="2.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
+            <TextField layoutX="10.0" layoutY="87.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="27.0" text="ADD.." VBox.vgrow="ALWAYS">
+                           <effect>
+                              <Glow />
+                           </effect>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="27.0" text="EDIT" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children></VBox>
    </left>
    <center>
       <ListView prefHeight="200.0" prefWidth="387.0" BorderPane.alignment="CENTER" />
    </center>
+   <bottom>
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="86.0" prefWidth="551.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="DELETE">
+               <HBox.margin>
+                  <Insets left="46.0" right="46.0" />
+               </HBox.margin>
+               <effect>
+                  <ColorAdjust brightness="-0.05" saturation="0.32" />
+               </effect>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <TextArea disable="true" layoutX="77.0" layoutY="10.0" />
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0">
+         <children>
+            <TextArea disable="true" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="400.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Add a song or select the song you would like to edit or delete." textAlignment="CENTER">
+               <padding>
+                  <Insets bottom="1.0" top="1.0" />
+               </padding>
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>
