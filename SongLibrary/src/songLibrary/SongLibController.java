@@ -20,12 +20,13 @@ public class SongLibController {
 	@FXML TextField albumInput;
 	@FXML TextField yearInput;
 	
-	private ObservableList<Song> playList;
+	private Song s= new Song(" ", " ", " ", " ");
+	private ObservableList<Song> playList= 
+			FXCollections.observableArrayList(s);
 	
 	public void start(Stage mainStage){
 		
-		playList = FXCollections.observableArrayList();
-
+		
 		lv.setItems(playList);
 		lv.getSelectionModel().select(0);
 	}
@@ -34,6 +35,7 @@ public class SongLibController {
 		String artist = artistInput.getText();
 		String album = albumInput.getText();
 		String year = yearInput.getText();
+		int newIndex;
 		
 		if (name=="" && artist=="" && album=="" && year==""){
 			Alert emptyInput = new Alert(AlertType.INFORMATION);
@@ -43,7 +45,9 @@ public class SongLibController {
 
 			emptyInput.showAndWait();
 		} else {
-			addSong(name, artist, album, year);
+			newIndex = addSong(name, artist, album, year);
+			lv.setItems(playList);
+			lv.getSelectionModel().select(newIndex);
 		}
 	}
 	public void editAction(ActionEvent e){
@@ -52,30 +56,37 @@ public class SongLibController {
 	public void deleteAction(ActionEvent e){
 		
 	}
-	public void addSong(String name,String artist, String album, String year){
+	public int addSong(String name,String artist, String album, String year){
 		
 		Song song = new Song(name, artist, album, year);
 		Song temp;
+		int j = 0;
 		if(playList.isEmpty()){
 			playList.add(song);
 		}
 		else{
 			for (int i=0;i<playList.size();i++){
-			 for (int j=1;j<(playList.size()-i);j++){
+			 for (j=1;j<(playList.size()-j);j++){
 	                if (playList.get(j-1).compareTo(playList.get(j) )>=0)
 	                {
 	                    temp=playList.get(j-1);
 	                    playList.remove(j-1);
 	                    playList.add(j, temp);
+	                } else if (playList.get(j-1).compareTo(playList.get(j) )==0){
+	                	Alert emptyInput = new Alert(AlertType.INFORMATION);
+	        			emptyInput.setTitle("Invalid Input");
+	        			emptyInput.setHeaderText("The song is already in the list.");
+	        			emptyInput.setContentText("Click OK to continue");
 	                }
 	            }
 			}
 		}
+		return j;
 	}
 	public void delete(Song a){
 		
 		if(!playList.isEmpty()){
-			int index= list.getSelectionModel().getSelectedIndex();
+			int index= lv.getSelectionModel().getSelectedIndex();
 			playList.remove(index);	
 		}
 
