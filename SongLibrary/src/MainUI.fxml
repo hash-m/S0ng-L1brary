@@ -99,7 +99,10 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <TextArea fx:id="detailBox" disable="true" layoutX="77.0" layoutY="10.0" />
+            <TextArea fx:id="detailBox" layoutX="77.0" layoutY="10.0">
+               <font>
+                  <Font size="14.0" />
+               </font></TextArea>
          </children>
       </HBox>
    </bottom>
