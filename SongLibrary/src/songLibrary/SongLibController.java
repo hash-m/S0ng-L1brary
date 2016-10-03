@@ -14,20 +14,20 @@ import javafx.stage.Stage;
 
 public class SongLibController {
 	
-	@FXML ListView<Song> lv;
+	@FXML ListView<String> lv;
 	@FXML TextField nameInput;
 	@FXML TextField artistInput;
 	@FXML TextField albumInput;
 	@FXML TextField yearInput;
 	
-	private Song s= new Song(" ", " ", " ", " ");
 	private ObservableList<Song> playList= 
-			FXCollections.observableArrayList(s);
+			FXCollections.observableArrayList();
+	private ObservableList<String> playListStrings=
+			FXCollections.observableArrayList();
 	
 	public void start(Stage mainStage){
-		
-		
-		lv.setItems(playList);
+		refreshLVStrings(playList);
+		lv.setItems(playListStrings);
 		lv.getSelectionModel().select(0);
 	}
 	public void addAction(ActionEvent e){
@@ -46,8 +46,15 @@ public class SongLibController {
 			emptyInput.showAndWait();
 		} else {
 			newIndex = addSong(name, artist, album, year);
-			lv.setItems(playList);
+			refreshLVStrings(playList);
+			lv.setItems(playListStrings);
 			lv.getSelectionModel().select(newIndex);
+		}
+	}
+	public void refreshLVStrings(ObservableList<Song> playList){
+		playListStrings.clear();
+		for (Song temp:playList){
+			playListStrings.add(temp.getName());
 		}
 	}
 	public void editAction(ActionEvent e){
