@@ -15,6 +15,10 @@ public class SongLib extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/MainUI.fxml"));
 			BorderPane root = (BorderPane)loader.load();
+			
+			SongLibController songLibController = loader.getController();
+			//songLibController.start(primaryStage);
+			
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Shwasty Song Collection");
