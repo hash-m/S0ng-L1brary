@@ -11,6 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class SongLibController {
@@ -41,7 +42,6 @@ public class SongLibController {
 			playListStrings.add(temp.getName());
 		}
 	}
-	@FXML
 	public void addAction(ActionEvent e){
 		String name = nameInput.getText();
 		String artist = artistInput.getText();
@@ -60,6 +60,7 @@ public class SongLibController {
 			newIndex = addSong(name, artist, album, year);
 		}
 		refreshLV(newIndex);
+		refreshDetailBox(newIndex);
 	}
 	public void editAction(ActionEvent e){
 		String name = nameInput.getText();
@@ -72,20 +73,26 @@ public class SongLibController {
 		edit(selectedIndex, name, artist, album, year);
 	}
 	public void deleteAction(ActionEvent e){
-		
-	}
-	public void onLVClick(ActionEvent e){
 		int selectedIndex = lv.getSelectionModel().getSelectedIndex();
+		Song a = playList.get(selectedIndex);
+		delete(a);
+		if (!playList.isEmpty()){
+			refreshDetailBox(selectedIndex-1);
+		}
+	}
+	public void onListViewClick(MouseEvent e){
+		if (!playList.isEmpty()){
+			int selectedIndex = lv.getSelectionModel().getSelectedIndex();
+			refreshDetailBox(selectedIndex);
+		}
+	}
+	public void refreshDetailBox(int selectedIndex){
 		Song a = playList.get(selectedIndex);
 		String name = a.getName();
 		String artist = a.getArtist();
 		String album = a.getAlbum();
 		String year = a.getYear();
-		
-		
-	}
-	public void refreshDetailBox(String name, String artist, String album, String year){
-		
+		detailBox.setText("Name: "+name+"\t\t\t\t\t\t\t\t\t\t"+album+"("+year+")"+"\n\n\n"+"Artist: "+artist);
 	}
 	public int addSong(String name,String artist, String album, String year){
 		Song song = new Song(name, artist, album, year);
@@ -129,12 +136,11 @@ public class SongLibController {
 		}
 	}
 	public void delete(Song a){
-		
 		if(!playList.isEmpty()){
 			int index= lv.getSelectionModel().getSelectedIndex();
 			playList.remove(index);	
+			refreshLV(0);
 		}
-
 	}
 	public void edit(int index, String name, String artist, String album, String year){
 		Song a = playList.get(index);
