@@ -29,9 +29,18 @@ public class SongLibController {
 		addSong("112","134","314","135");
 		addSong("115","135","316","135");
 		addSong("114","135","316","135");
+		refreshLV(0);
+	}
+	public void refreshLV(int index){
 		refreshLVStrings(playList);
 		lv.setItems(playListStrings);
-		lv.getSelectionModel().select(0);
+		lv.getSelectionModel().select(index);
+	}
+	public void refreshLVStrings(ObservableList<Song> playList){
+		playListStrings.clear();
+		for (Song temp:playList){
+			playListStrings.add(temp.getName());
+		}
 	}
 	public void addAction(ActionEvent e){
 		String name = nameInput.getText();
@@ -50,15 +59,7 @@ public class SongLibController {
 		} else {
 			newIndex = addSong(name, artist, album, year);
 		}
-		refreshLVStrings(playList);
-		lv.setItems(playListStrings);
-		lv.getSelectionModel().select(newIndex);
-	}
-	public void refreshLVStrings(ObservableList<Song> playList){
-		playListStrings.clear();
-		for (Song temp:playList){
-			playListStrings.add(temp.getName());
-		}
+		refreshLV(newIndex);
 	}
 	public void editAction(ActionEvent e){
 		
