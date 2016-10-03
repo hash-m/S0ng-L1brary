@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -19,6 +20,7 @@ public class SongLibController {
 	@FXML TextField artistInput;
 	@FXML TextField albumInput;
 	@FXML TextField yearInput;
+	@FXML TextArea detailBox;
 	
 	private ObservableList<Song> playList= 
 			FXCollections.observableArrayList();
@@ -26,9 +28,6 @@ public class SongLibController {
 			FXCollections.observableArrayList();
 	
 	public void start(Stage mainStage){
-		//addSong("112","134","314","135");
-		//addSong("115","135","316","135");
-		//addSong("114","135","316","135");
 		refreshLV(0);
 	}
 	public void refreshLV(int index){
@@ -63,13 +62,32 @@ public class SongLibController {
 		refreshLV(newIndex);
 	}
 	public void editAction(ActionEvent e){
+		String name = nameInput.getText();
+		String artist = artistInput.getText();
+		String album = albumInput.getText();
+		String year = yearInput.getText();
 		
+		int selectedIndex = lv.getSelectionModel().getSelectedIndex();
+		
+		edit(selectedIndex, name, artist, album, year);
 	}
 	public void deleteAction(ActionEvent e){
 		
 	}
-	public int addSong(String name,String artist, String album, String year){
+	public void onLVClick(ActionEvent e){
+		int selectedIndex = lv.getSelectionModel().getSelectedIndex();
+		Song a = playList.get(selectedIndex);
+		String name = a.getName();
+		String artist = a.getArtist();
+		String album = a.getAlbum();
+		String year = a.getYear();
 		
+		
+	}
+	public void refreshDetailBox(String name, String artist, String album, String year){
+		
+	}
+	public int addSong(String name,String artist, String album, String year){
 		Song song = new Song(name, artist, album, year);
 		int dontAdd = 0;
 		if(playList.isEmpty()){
@@ -102,13 +120,12 @@ public class SongLibController {
 					playList.add(h,song);
 					return h;
 				}
-				
 			}
 			if (dontAdd==0){
 				playList.add(song);
 				return (playList.size()-1);
 			}
-			return 0;
+			return -1;
 		}
 	}
 	public void delete(Song a){
@@ -119,7 +136,8 @@ public class SongLibController {
 		}
 
 	}
-	public void edit(Song a, String name, String artist, String album, String year){
+	public void edit(int index, String name, String artist, String album, String year){
+		Song a = playList.get(index);
 		Song b = new Song("","","",""); 
 		if(a.getName().isEmpty()){
 			b.setName(a.getName());
@@ -146,8 +164,10 @@ public class SongLibController {
 			b.setYear(year);
 		}
 		
-		delete (a);
-		addSong(b.getName(),b.getArtist(),b.getAlbum(),b.getYear());
+		if (addSong(b.getName(),b.getArtist(),b.getAlbum(),b.getYear()) != -1){
+			delete (a);
+		}
+		refreshLV(index);
 	}		
 }
 	
