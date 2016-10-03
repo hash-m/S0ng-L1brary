@@ -1,19 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<!-- TODO Add Nodes -->
 	<top>
-        <Label text="Page Title"/>
+        <Label alignment="CENTER" contentDisplay="CENTER" text="Shwasty Song Collection" textAlignment="CENTER" />
     </top>
-    <center>
-        <Label text="Some data here"/>
-    </center>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+            <TextField alignment="CENTER_RIGHT" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Artist" />
+            <TextField alignment="CENTER_RIGHT" layoutX="10.0" layoutY="103.0" />
+            <Text layoutX="10.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album" />
+            <TextField alignment="CENTER_RIGHT" layoutX="10.0" layoutY="26.0" />
+            <Text layoutX="10.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Year" />
+            <TextField alignment="CENTER_RIGHT" layoutX="10.0" layoutY="87.0" />
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="114.0" text="ADD.." />
+                  <Button layoutX="40.0" layoutY="10.0" mnemonicParsing="false" text="EDIT" />
+              </buttons>
+            </ButtonBar>
+         </children></VBox>
+   </left>
+   <center>
+      <ListView prefHeight="200.0" prefWidth="387.0" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>
-
