@@ -19,10 +19,7 @@ public class SongLibController {
 			//Collections.sort(playList.name);
 		}
 		
-		
-		
 	}
-	
 	
 
 }
