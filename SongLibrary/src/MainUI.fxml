@@ -78,7 +78,7 @@
          </children></VBox>
    </left>
    <center>
-      <ListView fx:id="lv" prefHeight="200.0" prefWidth="387.0" BorderPane.alignment="CENTER" />
+      <ListView fx:id="lv" onMouseClicked="#onListViewClick" prefHeight="200.0" prefWidth="387.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
       <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="86.0" prefWidth="551.0" BorderPane.alignment="CENTER_LEFT">
@@ -94,14 +94,14 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <TextArea fx:id="detailbox" disable="true" layoutX="77.0" layoutY="10.0" />
+            <TextArea fx:id="detailBox" disable="true" layoutX="77.0" layoutY="10.0" />
          </children>
       </HBox>
    </bottom>
    <top>
       <HBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0">
          <children>
-            <TextArea fx:id="alertbox" disable="true" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="400.0" />
+            <TextArea fx:id="alertBox" disable="true" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="400.0" />
             <Label alignment="CENTER" contentDisplay="CENTER" text="Add a song or select the song you would like to edit or delete." textAlignment="CENTER">
                <padding>
                   <Insets bottom="1.0" top="1.0" />
