@@ -4,23 +4,53 @@ import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class SongLibController {
 	
-	@FXML
-	ListView<String> lv;
+	@FXML ListView<Song> lv;
+	@FXML TextField nameInput;
+	@FXML TextField artistInput;
+	@FXML TextField albumInput;
+	@FXML TextField yearInput;
 	
 	private ObservableList<Song> playList;
-	private ObservableList<String> playListStrings;
 	
 	public void start(Stage mainStage){
-		playListStrings = FXCollections.observableArrayList("elephants");
+		
+		playList = FXCollections.observableArrayList();
 
-		lv.setItems(playListStrings);
+		lv.setItems(playList);
 		lv.getSelectionModel().select(0);
+	}
+	public void addAction(ActionEvent e){
+		String name = nameInput.getText();
+		String artist = artistInput.getText();
+		String album = albumInput.getText();
+		String year = yearInput.getText();
+		
+		if (name=="" && artist=="" && album=="" && year==""){
+			Alert emptyInput = new Alert(AlertType.INFORMATION);
+			emptyInput.setTitle("Invalid Input");
+			emptyInput.setHeaderText("You did not enter any text. No song were added.");
+			emptyInput.setContentText("Click OK to continue");
+
+			emptyInput.showAndWait();
+		} else {
+			addSong(name, artist, album, year);
+		}
+	}
+	public void editAction(ActionEvent e){
+		
+	}
+	public void deleteAction(ActionEvent e){
+		
 	}
 	public void addSong(String name,String artist, String album, String year){
 		

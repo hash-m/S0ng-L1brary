@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="songLibrary.SongLibController">
    <left>
       <VBox prefHeight="200.0" prefWidth="164.0" BorderPane.alignment="CENTER">
          <children>
@@ -61,7 +61,7 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button fx:id="add" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="27.0" text="ADD.." VBox.vgrow="ALWAYS">
+                        <Button fx:id="add" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addAction" prefHeight="27.0" text="ADD.." VBox.vgrow="ALWAYS">
                            <effect>
                               <Glow />
                            </effect>
@@ -70,7 +70,7 @@
                   </VBox>
                   <VBox layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button fx:id="edit" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="27.0" text="EDIT" />
+                        <Button fx:id="edit" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#editAction" prefHeight="27.0" text="EDIT" />
                      </children>
                   </VBox>
                </children>
@@ -83,7 +83,7 @@
    <bottom>
       <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="86.0" prefWidth="551.0" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <Button fx:id="del" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="DELETE">
+            <Button fx:id="delete" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteAction" prefHeight="27.0" prefWidth="73.0" text="DELETE">
                <HBox.margin>
                   <Insets left="46.0" right="46.0" />
                </HBox.margin>
