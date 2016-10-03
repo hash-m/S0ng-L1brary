@@ -46,18 +46,4 @@ public class Song {
 	public void setYear(String year){
 		this.year=year;
 	}
-	
-	public int compareTo(Song a){
-		
-		int compareName=((Song)a).getName().compareTo(this.name);
-		
-		if (compareName !=0){
-			return compareName;
-		}
-		
-		else{
-			int compareArtist=((Song)a).getArtist().compareTo(this.artist);
-			return compareArtist;
-		}
-	}
 }
