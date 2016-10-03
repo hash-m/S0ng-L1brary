@@ -1,6 +1,12 @@
+/*
+* Ishan Pal
+* Javed Shah
+*/
+
 package songLibrary;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -42,6 +49,19 @@ public class SongLibController {
 			playListStrings.add(temp.getName());
 		}
 	}
+	public int confirmationDialog(String name, String action){
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmation Dialog");
+		alert.setHeaderText("Are you sure you want to "+action+" "+name+" in the playlist?");
+		alert.setContentText("Click OK to continue.");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK){
+		    return 1;
+		} else {
+		    return 0;
+		}
+	}
 	public void addAction(ActionEvent e){
 		String name = nameInput.getText();
 		String artist = artistInput.getText();
@@ -60,7 +80,9 @@ public class SongLibController {
 			newIndex = addSong(name, artist, album, year);
 		}
 		refreshLV(newIndex);
-		refreshDetailBox(newIndex);
+		if(newIndex != -1){
+			refreshDetailBox(newIndex);
+		}
 	}
 	public void editAction(ActionEvent e){
 		String name = nameInput.getText();
@@ -77,7 +99,8 @@ public class SongLibController {
 		Song a = playList.get(selectedIndex);
 		delete(a);
 		if (!playList.isEmpty()){
-			refreshDetailBox(selectedIndex-1);
+			selectedIndex = lv.getSelectionModel().getSelectedIndex();
+			refreshDetailBox(selectedIndex);
 		}
 	}
 	public void onListViewClick(MouseEvent e){
@@ -92,15 +115,18 @@ public class SongLibController {
 		String artist = a.getArtist();
 		String album = a.getAlbum();
 		String year = a.getYear();
-		detailBox.setText("Name: "+name+"\t\t\t\t\t\t\t\t\t\t"+album+"("+year+")"+"\n\n\n"+"Artist: "+artist);
+		detailBox.setText("Name: "+name+"\t\t\t\t\t\t\t\t"+album+"("+year+")"+"\n\n\n"+"Artist: "+artist);
 	}
 	public int addSong(String name,String artist, String album, String year){
 		Song song = new Song(name, artist, album, year);
 		int dontAdd = 0;
 		if(playList.isEmpty()){
-			System.out.println("add1");
-			playList.add(song);
-			return 0;
+			if (confirmationDialog(song.getName(),"add")==1){
+				playList.add(song);
+				return 0;
+			} else {
+				return 0;
+			}
 		} else {
 			for (int h=0;h<playList.size();h++){
 				int compareName = song.getName().compareTo(playList.get(h).getName());
@@ -118,19 +144,31 @@ public class SongLibController {
 					} else if (compareArtist>0){
 						continue;
 					} else if (compareArtist<0){
-						System.out.println("add compare artist");
-						playList.add(h,song);
+						if (confirmationDialog(song.getName(),"add")==1){
+							playList.add(h,song);
+							return 0;
+						} else {
+							return 0;
+						}
 					}
 				} else if (compareName>0){
 					continue;
 				} else if (compareName<0){
-					playList.add(h,song);
-					return h;
+					if (confirmationDialog(song.getName(),"add")==1){
+						playList.add(h,song);
+						return h;
+					} else {
+						return 0;
+					}
 				}
 			}
 			if (dontAdd==0){
-				playList.add(song);
-				return (playList.size()-1);
+				if (confirmationDialog(song.getName(),"add")==1){
+					playList.add(song);
+					return (playList.size()-1);
+				} else {
+					return (playList.size()-1);
+				}
 			}
 			return -1;
 		}
@@ -138,8 +176,24 @@ public class SongLibController {
 	public void delete(Song a){
 		if(!playList.isEmpty()){
 			int index= lv.getSelectionModel().getSelectedIndex();
-			playList.remove(index);	
-			refreshLV(0);
+			if (confirmationDialog(playList.get(index).getName(),"delete")==1){
+				if(index==0){
+					playList.remove(index);
+				} else {
+					playList.remove(index);
+				}
+				if(!playList.isEmpty()){
+					if(playList.size()-1<index){
+						refreshLV(index-1);
+					} else if (playList.size()-1>index){
+						refreshLV(index+1);
+					} else {
+						refreshLV(index);
+					}
+				} else {
+					refreshLV(0);
+				}
+			}
 		}
 	}
 	public void edit(int index, String name, String artist, String album, String year){
@@ -169,10 +223,12 @@ public class SongLibController {
 		else{
 			b.setYear(year);
 		}
-		
-		if (addSong(b.getName(),b.getArtist(),b.getAlbum(),b.getYear()) != -1){
-			delete (a);
+		if (confirmationDialog(b.getName(), "edit") == 1){
+			if (addSong(b.getName(),b.getArtist(),b.getAlbum(),b.getYear()) != -1){
+				delete (a);
+			}
 		}
+		
 		refreshLV(index);
 	}		
 }
