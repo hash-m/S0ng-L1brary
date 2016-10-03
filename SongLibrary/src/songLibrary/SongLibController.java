@@ -26,9 +26,9 @@ public class SongLibController {
 			FXCollections.observableArrayList();
 	
 	public void start(Stage mainStage){
-		addSong("112","134","314","135");
-		addSong("115","135","316","135");
-		addSong("114","135","316","135");
+		//addSong("112","134","314","135");
+		//addSong("115","135","316","135");
+		//addSong("114","135","316","135");
 		refreshLV(0);
 	}
 	public void refreshLV(int index){
@@ -42,6 +42,7 @@ public class SongLibController {
 			playListStrings.add(temp.getName());
 		}
 	}
+	@FXML
 	public void addAction(ActionEvent e){
 		String name = nameInput.getText();
 		String artist = artistInput.getText();
@@ -49,7 +50,7 @@ public class SongLibController {
 		String year = yearInput.getText();
 		int newIndex = 0;
 		
-		if (name=="" && artist=="" && album=="" && year==""){
+		if (name.isEmpty() && artist.isEmpty() && album.isEmpty() && year.isEmpty()){
 			Alert emptyInput = new Alert(AlertType.INFORMATION);
 			emptyInput.setTitle("Invalid Input");
 			emptyInput.setHeaderText("You did not enter any text. No song were added.");
@@ -70,29 +71,45 @@ public class SongLibController {
 	public int addSong(String name,String artist, String album, String year){
 		
 		Song song = new Song(name, artist, album, year);
-		Song temp;
-		int j = 0;
+		int dontAdd = 0;
 		if(playList.isEmpty()){
+			System.out.println("add1");
 			playList.add(song);
-		}
-		else{
-			for (int i=0;i<playList.size();i++){
-			 for (j=1;j<(playList.size()-j);j++){
-	                if (playList.get(j-1).compareTo(playList.get(j) )>=0)
-	                {
-	                    temp=playList.get(j-1);
-	                    playList.remove(j-1);
-	                    playList.add(j, temp);
-	                } else if (playList.get(j-1).compareTo(playList.get(j) )==0){
-	                	Alert emptyInput = new Alert(AlertType.INFORMATION);
+			return 0;
+		} else {
+			for (int h=0;h<playList.size();h++){
+				int compareName = song.getName().compareTo(playList.get(h).getName());
+				if (compareName == 0){
+					int compareArtist = song.getArtist().compareTo(playList.get(h).getArtist());
+					if (compareArtist==0){
+						Alert emptyInput = new Alert(AlertType.INFORMATION);
 	        			emptyInput.setTitle("Invalid Input");
 	        			emptyInput.setHeaderText("The song is already in the list.");
 	        			emptyInput.setContentText("Click OK to continue");
-	                }
-	            }
+	        			
+	        			emptyInput.showAndWait();
+	        			dontAdd = 1;
+	        			break;
+					} else if (compareArtist>0){
+						continue;
+					} else if (compareArtist<0){
+						System.out.println("add compare artist");
+						playList.add(h,song);
+					}
+				} else if (compareName>0){
+					continue;
+				} else if (compareName<0){
+					playList.add(h,song);
+					return h;
+				}
+				
 			}
+			if (dontAdd==0){
+				playList.add(song);
+				return (playList.size()-1);
+			}
+			return 0;
 		}
-		return j;
 	}
 	public void delete(Song a){
 		
